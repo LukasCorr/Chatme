@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" href="static/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<title>ChatMe</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var user= prompt("Ingrese un nombre de Usuario:");
+		sessionStorage.setItem("Nombre", user);
+		var nombre = sessionStorage.getItem("Nombre");
+
+		document.write('Hola <b>'+nombre+'</b>');
+/*<script>
+/*Funcion de Capturar, Almacenar datos y Limpiar campos
+$(document).ready(function(){  
+   $(‘#boton-guardar’).click(function(){      
+/*Captura de datos escrito en los inputs
+var nom = document.getElementById("nombretxt").value;
+var apel = document.getElementById("apellidotxt").value;
+/*Guardando los datos en el LocalStorage
+sessionStorage.setItem("Nombre", nom);
+sessionStorage.setItem("Apellido", apel);
+/*Limpiando los campos o inputs
+document.getElementById("nombretxt").value = "";
+document.getElementById("apellidotxt").value = "";
+   });  
+});
+/*Funcion Cargar y Mostrar datos
+$(document).ready(function(){  
+   $(‘#boton-cargar’).click(function(){                      
+/*Obtener datos almacenados
+var nombre = sessionStorage.getItem("Nombre");
+var apellido = sessionStorage.getItem("Apellido");
+/*Mostrar datos almacenados    
+document.getElementById("nombre").innerHTML = nombre;
+       document.getElementById("apellido").innerHTML = apellido;
+   });  
+});*/
+
+
+</script>
+<br>
+<h2>Mensajeame</h2>
+
+	<div id="cuadro">
+		<div>
+		 <p id="chat"></p>
+	    </div>
+		<form id="send-message">
+		<input type="text" id="message" autocomplete="off">
+		<input type="submit" value="Enviar">
+		</form>
+	</div>
+	<br>
+	</div>
+
+	<script type="text/javascript">
+		$(function () {
+		var socket = io.connect();
+		var $messageform = $('#send-message');
+		var $messageBox = $('#message');
+		var $chat = $('#chat');
+
+		$messageform.submit(function(e){
+			e.preventDefault();
+			socket.emit('send message', $messageBox.val());
+			$messageBox.val('');
+		});
+
+		socket.on('new message', function(data){
+			$chat.append('<b>'+nombre+': </b>'+data+'<br>');
+		});
+	});
+	</script>
+</body>
+</html>
