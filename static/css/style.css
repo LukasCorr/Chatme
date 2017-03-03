@@ -2,3 +2,50 @@ body{
 	background-image: url('../img/fondo.jpg');
     background-size:100%;
 }
+#chatme{
+	float: left;
+	color: white;
+	font-family: 'Baloo', cursive;
+	font-size: 35px;
+}
+.img{
+	width: 40px;
+}
+
+#saludo{
+	float: right;
+	color: white;
+}
+
+#cuadro{
+	height: 260px;
+	width: 40%;
+	background-color: white;
+	border-style: ridge;
+	border-radius: 10px;
+	margin-top: 7%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-left: 30%
+}
+
+.texto{
+	background-color: #A4DDF4;
+	border-radius: 3px;
+	padding: 8px;
+	margin-left: 6px;
+	margin-right: 5px;
+	font-family: 'Indie Flower', cursive;
+}
+.escribir{
+	margin-top: -7px;
+	position: absolute;
+	margin-left: 274px;
+	background-color: white;
+	width: 374px;
+	height: 32px;
+	border-bottom: ridge;
+	border-right: ridge;
+	border-left: ridge;
+	border-radius: 10px;
+}

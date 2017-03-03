@@ -3,7 +3,7 @@ var express = require('express'),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
 
-var server=app.listen(8888,function(){
+server.listen(8888,function(){
     console.log('****** Server started ******');});
 
 app.use(express.static(__dirname + '/'));

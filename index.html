@@ -4,60 +4,36 @@
 	<meta charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="icon" href="static/img/favicon.png">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo|Indie+Flower" rel="stylesheet"> 
 	<title>ChatMe</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-	<script type="text/javascript">
-		var user= prompt("Ingrese un nombre de Usuario:");
-		sessionStorage.setItem("Nombre", user);
-		var nombre = sessionStorage.getItem("Nombre");
+<div>
+	<h2 id="chatme">Chatme <img src="static/img/favicon.png" class="img"></h2>
+	<p id="saludo">
+		<script type="text/javascript">
 
-		document.write('Hola <b>'+nombre+'</b>');
-/*<script>
-/*Funcion de Capturar, Almacenar datos y Limpiar campos
-$(document).ready(function(){  
-   $(‘#boton-guardar’).click(function(){      
-/*Captura de datos escrito en los inputs
-var nom = document.getElementById("nombretxt").value;
-var apel = document.getElementById("apellidotxt").value;
-/*Guardando los datos en el LocalStorage
-sessionStorage.setItem("Nombre", nom);
-sessionStorage.setItem("Apellido", apel);
-/*Limpiando los campos o inputs
-document.getElementById("nombretxt").value = "";
-document.getElementById("apellidotxt").value = "";
-   });  
-});
-/*Funcion Cargar y Mostrar datos
-$(document).ready(function(){  
-   $(‘#boton-cargar’).click(function(){                      
-/*Obtener datos almacenados
-var nombre = sessionStorage.getItem("Nombre");
-var apellido = sessionStorage.getItem("Apellido");
-/*Mostrar datos almacenados    
-document.getElementById("nombre").innerHTML = nombre;
-       document.getElementById("apellido").innerHTML = apellido;
-   });  
-});*/
+			var user= prompt("Ingrese un nombre de Usuario:");
+			localStorage.setItem("Nombre", user);
+			var nombre = localStorage.getItem("Nombre");
 
-
-</script>
+			document.write('Hola, <b>'+nombre+'!</b>');
+		</script>
+	</p>
+</div>
 <br>
-<h2>Mensajeame</h2>
+<label id="nombre" type="text"></label>
+<div id="cuadro">
+	<p id="chat"></p>
+</div>
 
-	<div id="cuadro">
-		<div>
-		 <p id="chat"></p>
-	    </div>
-		<form id="send-message">
-		<input type="text" id="message" autocomplete="off">
-		<input type="submit" value="Enviar">
-		</form>
-	</div>
-	<br>
-	</div>
+<form id="send-message" class="escribir">
+	<input type="text" id="message" autocomplete="off" style="width: 65%;" placeholder="Escribe un mensaje">
+	<input type="submit" value="Enviar">
+</form>
+
 
 	<script type="text/javascript">
 		$(function () {
@@ -73,7 +49,7 @@ document.getElementById("nombre").innerHTML = nombre;
 		});
 
 		socket.on('new message', function(data){
-			$chat.append('<b>'+nombre+': </b>'+data+'<br>');
+			$chat.append('<div class="texto"><b>'+nombre+': </b>'+data+'<br></div>');
 		});
 	});
 	</script>
