@@ -4,7 +4,8 @@ var express = require('express'),
 	io = require('socket.io').listen(server);
 
 server.listen(8888,function(){
-    console.log('****** Server started ******');});
+    console.log('****** Server started ******');
+	console.log('Open http://localhost:8888');});
 
 app.use(express.static(__dirname + '/'));
 

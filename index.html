@@ -4,36 +4,50 @@
 	<meta charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="icon" href="static/img/favicon.png">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Baloo|Indie+Flower" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/awesome.css"><!--iconos-->
+    <link href="https://fonts.googleapis.com/css?family=Baloo|Indie+Flower" rel="stylesheet"> <!-- fonts para el chat -->
 	<title>ChatMe</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<div>
 	<h2 id="chatme">Chatme <img src="static/img/favicon.png" class="img"></h2>
 	<p id="saludo">
 		<script type="text/javascript">
 
 			var user= prompt("Ingrese un nombre de Usuario:");
-			localStorage.setItem("Nombre", user);
-			var nombre = localStorage.getItem("Nombre");
+			
+			if (user=='') {
+				alert("No se ha ingresado un nombre de usuario!");
+				window.location='index.html';
+			}
 
-			document.write('Hola, <b>'+nombre+'!</b>');
+			document.write('Bienvenido, <b>'+user+'!</b>');
 		</script>
 	</p>
-</div>
 <br>
-<label id="nombre" type="text"></label>
+
 <div id="cuadro">
 	<p id="chat"></p>
+	<div style="height: 35px;background-color: white;"></div>
 </div>
 
-<form id="send-message" class="escribir">
-	<input type="text" id="message" autocomplete="off" style="width: 65%;" placeholder="Escribe un mensaje">
-	<input type="submit" value="Enviar">
-</form>
+<div class="input-group input">
+	<form id="send-message" autocomplete="off">
+		<input type="text" id="message" style="width: 59%;" placeholder="Escribe un mensaje.." class="form-control" autofocus>
+        <span class="input-group-btn">
+        	<button class="btn btn-default" type="submit">
+                <i class="fa fa-send"></i>
+            </button>
+        </span>
+  	</form>            
+</div>
 
+
+<div class="footer">
+	<p>&copy; 2017 Chatme,inc. <a href="https://github.com/LukasCorr/Chatme" target="_blank"><i class="fa fa-github"></i></a></p>
+</div>
 
 	<script type="text/javascript">
 		$(function () {
@@ -41,15 +55,17 @@
 		var $messageform = $('#send-message');
 		var $messageBox = $('#message');
 		var $chat = $('#chat');
-
+		
 		$messageform.submit(function(e){
 			e.preventDefault();
-			socket.emit('send message', $messageBox.val());
-			$messageBox.val('');
+			if ($messageBox.val()!='') {//Si no hay texto, no enviar!
+				socket.emit('send message', $messageBox.val());
+				$messageBox.val('');
+			}
 		});
 
 		socket.on('new message', function(data){
-			$chat.append('<div class="texto"><b>'+nombre+': </b>'+data+'<br></div>');
+			$chat.append('<div class="texto"><b>'+user+': </b>'+data+'<br></div>');
 		});
 	});
 	</script>
