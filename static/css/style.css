@@ -1,6 +1,11 @@
+html{
+	width: 100%;
+	height: 100%;
+}
 body{
-	background-image: url('../img/fondo.jpg');
-    background-size:100%;
+	background: url('../img/fondo.jpg');
+    background-size:100% 100%;
+    overflow-y: hidden;
 }
 #chatme{
 	float: left;
@@ -12,6 +17,7 @@ body{
 .img{
 	width: 40px;
 }
+.fa{ color: black;}
 
 #saludo{
 	float: right;
@@ -20,13 +26,12 @@ body{
 	font-size: 17px;
 }
 
-.footer {
+footer {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem 1rem -2rem 1rem;
-  font-size: 11px;
+  padding-left: 13px;
 }
 
 #cuadro{
@@ -41,7 +46,7 @@ body{
 	margin-left: 30%;
 }
 
-.texto{
+#texto{
 	background-color: #A4DDF4;
 	border-radius: 3px;
 	margin-top: 1px;
@@ -50,10 +55,10 @@ body{
 	margin-right: 5px;
 	font-family: 'Indie Flower', cursive;
 }
-.input{
+.input-group{
 	width:59%;
 	height: 270px;
 	margin-top: -40px;
 	margin-left: 31%;
-
+	position: fixed;
 }
