@@ -1,7 +1,0 @@
-$(function(){
-
-	$('button').click(function(){
-
-		
-	});
-});

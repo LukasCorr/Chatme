@@ -2,53 +2,76 @@
 <html>
 <head>
 	<meta charset="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="icon" href="static/img/favicon.png">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="static/css/awesome.css"><!--iconos-->
-    <link href="https://fonts.googleapis.com/css?family=Baloo|Indie+Flower" rel="stylesheet"> <!-- fonts para el chat -->
 	<title>ChatMe</title>
+  <link rel="icon" href="static/img/favicon.png">
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/awesome.css"><!--iconos-->
 	<script src="static/js/jquery-3.2.1.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="static/js/myscript.js"></script>
+	<script src="static/js/adminlte.min.js"></script>
 </head>
 <body>
-	<h2 id="chatme">Chatme <img src="static/img/favicon.png" class="img"></h2>
+	<a href="./">
+    <h2 id="chatme">Chatme <img src="static/img/favicon.png" class="img"></h2>
+  </a>
 	<p id="saludo">
 		<script type="text/javascript">
 
 			var user= prompt("Ingrese un nombre de Usuario:");	
 
-			if (user=='') {
+			if (user==false) {
 				alert("No se ha ingresado un nombre de usuario!");
 				window.location='./';
 			}
-
-			document.write('Bienvenido, <b>'+user+'!</b>');
+			document.write('Bienvenido, <span style="font-family:baloo;">'+user+'!</span>');
 		</script>
 	</p>
-<br>
 
-<div id="cuadro">
-	<p id="chat"></p>
-	<div style="height: 35px;background-color: white;"></div>
-</div>
+  <div class="box box-primary direct-chat direct-chat-primary col-md-5">
+    <div class="box-header with-border">
+      <h3 class="box-title"><i class="fa fa-comments"></i> Chat en línea</h3>
+      <div class="box-tools pull-right">
+      	<span class="direct-chat-timestamp">En línea</span>
+        <span data-toggle="tooltip" data-placement="bottom" class="badge bg-green-gradient visitas">f</span>
+        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      </div>
+    </div>
 
-<div class="input-group">
-	<form id="send-message" autocomplete="off">
-		<input type="text" id="message" style="width: 59%;" placeholder="Escribe un mensaje.." class="form-control" autofocus>
-        <span class="input-group-btn">
-        	<button class="btn btn-default" type="submit">
-                <i class="fa fa-send"></i>
-            </button>
-        </span>
-  	</form>            
-</div>
-
-
-<footer>
-	<p>&copy; 2017 Chatme,inc. <a href="https://github.com/LukasCorr/Chatme" target="_blank"><i class="fa fa-github"></i></a></p>
-</footer>
+    <div class="box-body">
+      <div class="direct-chat-messages" id="chat"></div>
+      <div class="direct-chat-contacts">
+        <ul class="contacts-list">
+          <li>
+            <a href="#">
+              <!--<img class="contacts-list-img" src="../dist/img/user1-128x128.jpg" alt="User Image">-->
+              <div class="contacts-list-info">
+                <span class="contacts-list-name">Count Dracula
+                  <small class="contacts-list-date pull-right">2/28/2015</small>
+                </span>
+                <span class="contacts-list-msg">How have you been? I was...</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+   
+    <div class="box-footer">
+      <form id="send-message" autocomplete="off">
+        <div class="input-group">
+          <input type="text" id="message" placeholder="Escribe un mensaje ..." class="form-control" autofocus="true">
+          <span class="input-group-btn">
+            <button type="submit" class="btn bg-blue-gradient"><i class="fa fa-send"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer>
+	  <p>&copy; 2017 TSolutions. <a href="https://github.com/LukasCorr/Chatme" target="_blank"><i class="fa fa-github" style="color: black;"></i></a></p>
+  </footer>
 
 	<script type="text/javascript">
 		$(function () {
@@ -66,9 +89,76 @@
 		});
 
 		socket.on('new message', function(data){
-			$chat.append('<div id="texto"><b>'+user+': </b>'+data+'<br></div>');
+      
+      var time=new Date();
+      hora=time.getHours()+":"+time.getMinutes(); 
+      
+      var chatme = '<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-left">'+hora+'</span></div><span class="direct-chat-name pull-right">'+user+'</span><div class="direct-chat-text">'+data+'</div></div>';
+
+			$chat.append(chatme);
 		});
+
+     socket.on('vtas', function(visitas){
+       $('.visitas').text(visitas);
+       $('.visitas').attr('title',visitas+" personas en línea");
+     });
+
+
+
 	});
 	</script>
+
 </body>
 </html>
+      
+
+
+<!--<br>
+<div class="container row">
+  <div class="col-md-6">
+    <div id="cuadro">
+      <p id="chat"></p>
+      <div style="height: 35px;background-color: white;"></div>
+    </div>
+
+    <div class="input-group">
+      <form id="send-message" autocomplete="off">
+        <input type="text" id="message" style="width: 59%;" placeholder="Escribe un mensaje.." class="form-control" autofocus>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                    <i class="fa fa-send"></i>
+                </button>
+            </span>
+        </form>            
+    </div>
+  </div>
+
+
+
+
+        <div class="direct-chat-msg">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left">Alexander Pierce</span>
+            <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+          </div>
+         /.direct-chat-info 
+          <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"></.direct-chat-img 
+          <div class="direct-chat-text">
+            Is this template really for free? That's unbelievable!
+          </div>
+        </div>
+       
+        <div class="direct-chat-msg right">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-right">Sarah Bullock</span>
+            <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+          </div>
+
+          <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image">< /.direct-chat-img 
+           <div class="direct-chat-text">
+            You better believe it!
+          </div>
+        </div>
+
+
+-->
