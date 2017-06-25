@@ -9,20 +9,20 @@ server.listen(8888,function(){
 
 app.use(express.static(__dirname + '/'));
 
-var visitas = 0;
+var conectados = 0;
 io.sockets.on('connection', function(socket){
 	
-	visitas++;
-	socket.emit('vtas', visitas);
-	socket.broadcast.emit('vtas', visitas);
+	conectados++;
+	socket.emit('vtas', conectados);
+	socket.broadcast.emit('vtas', conectados);
 
 	socket.on('send message', function(data){
+
 	io.sockets.emit('new message', data);
 	});
 
 	socket.on('disconnect', function(){
-     	visitas--;
-     	socket.broadcast.emit('vtas', visitas);
+     	conectados--;
+     	socket.broadcast.emit('vtas', conectados);
  	});
 });
-	

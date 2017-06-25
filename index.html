@@ -7,16 +7,13 @@
   <link rel="stylesheet" type="text/css" href="static/css/style.css">
   <link rel="stylesheet" href="static/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="static/css/awesome.css"><!--iconos-->
-	<script src="static/js/jquery-3.2.1.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="static/js/adminlte.min.js"></script>
 </head>
 <body>
 	<a href="./">
     <h2 id="chatme">Chatme <img src="static/img/favicon.png" class="img"></h2>
   </a>
-	<p id="saludo">
-		<script type="text/javascript">
+  <p id="saludo">
+     		<script type="text/javascript">
 
 			var user= prompt("Ingrese un nombre de Usuario:");	
 
@@ -27,13 +24,15 @@
 			document.write('Bienvenido, <span style="font-family:baloo;">'+user+'!</span>');
 		</script>
 	</p>
-
+<div id="usuarios"></div>
   <div class="box box-primary direct-chat direct-chat-primary col-md-5">
     <div class="box-header with-border">
-      <h3 class="box-title"><i class="fa fa-comments"></i> Chat en línea</h3>
+      <h3 class="box-title">
+        <i class="fa fa-comments"></i> Chat en línea <i class="badge bg-red-gradient" id="msj"></i>
+      </h3>
       <div class="box-tools pull-right">
-      	<span class="direct-chat-timestamp">En línea</span>
-        <span data-toggle="tooltip" data-placement="bottom" class="badge bg-green-gradient visitas">f</span>
+      	<span class="direct-chat-timestamp">Conectados</span>
+        <a href="javascript:void(0);"><span data-toggle="tooltip" data-placement="bottom" class="badge bg-green-gradient conectados"></span></a>
         <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
       </div>
@@ -61,53 +60,31 @@
     <div class="box-footer">
       <form id="send-message" autocomplete="off">
         <div class="input-group">
-          <input type="text" id="message" placeholder="Escribe un mensaje ..." class="form-control" autofocus="true">
+          <input type="text" id="message" placeholder="Escribe un mensaje ..." class="form-control" autofocus="true" onclick="visto();">
           <span class="input-group-btn">
-            <button type="submit" class="btn bg-blue-gradient"><i class="fa fa-send"></i></button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i></button>
           </span>
         </div>
       </form>
     </div>
   </div>
+  <img src="static/img/icon-color.png" class="img-circle" id="color">
+  
+  <ul id="colores">
+    <li><i class="fa fa-circle" id="rojo"></i></li>
+    <li><i class="fa fa-circle" id="azul"></i></li>
+    <li><i class="fa fa-circle" id="amarillo"></i></li>
+    <li><i class="fa fa-circle" id="celeste"></i></li>
+    <li><i class="fa fa-circle" id="verde"></i></li>
+  </ul>
+
   <footer>
 	  <p>&copy; 2017 TSolutions. <a href="https://github.com/LukasCorr/Chatme" target="_blank"><i class="fa fa-github" style="color: black;"></i></a></p>
   </footer>
 
-	<script type="text/javascript">
-		$(function () {
-		var socket = io.connect();
-		var $messageform = $('#send-message');
-		var $messageBox = $('#message');
-		var $chat = $('#chat');
-
-		$messageform.submit(function(e){
-			e.preventDefault();
-			if ($messageBox.val()!='') {//Si no hay texto, no enviar!
-				socket.emit('send message', $messageBox.val());
-				$messageBox.val('');
-			}
-		});
-
-		socket.on('new message', function(data){
-      
-      var time=new Date();
-      hora=time.getHours()+":"+time.getMinutes(); 
-      
-      var chatme = '<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-left">'+hora+'</span></div><span class="direct-chat-name pull-right">'+user+'</span><div class="direct-chat-text">'+data+'</div></div>';
-
-			$chat.append(chatme);
-		});
-
-     socket.on('vtas', function(visitas){
-       $('.visitas').text(visitas);
-       $('.visitas').attr('title',visitas+" personas en línea");
-     });
-
-
-
-	});
-	</script>
-
+  <script src="static/js/jquery-3.2.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="static/js/app.js"></script>
 </body>
 </html>
       

@@ -1,25 +1,22 @@
 {
-	"name": "ChatMe",
-	"description": "A chat in real-time",
-	"version": "0.0.3",
-	"author": "Lucas Correa",
-	"email" : "correa97lukas@hotmail.com",
-
-	"config" : { 
-		"port" : "8080" 
-	},
-
-	"scripts" : { 
-		"start" : "node server.js" 
-	},
-
-	"dependencies":{
-		"socket.io": "1.7.3",
-		"express": "4.14.1"
-	},
-	"repository":{
-    "type" : "git",
-    "url" : "https://github.com/LukasCorr/Chatme.git"
-  	}
-
+  "name": "ChatMe",
+  "description": "A chat in real-time",
+  "version": "0.0.3",
+  "author": "Lucas Correa",
+  "email": "correa97lukas@hotmail.com",
+  "config": {
+    "port": "8080"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.14.1",
+    "express-session": "^1.15.3",
+    "socket.io": "1.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LukasCorr/Chatme.git"
+  }
 }
