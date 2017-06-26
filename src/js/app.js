@@ -48,7 +48,7 @@ function animateScroll(){
 }
 
 function tono(){
-  var audio = new Audio('static/audio/tono.mp3');
+  var audio = new Audio('audio/tono.mp3');
   audio.play();
 }
 function visto(){
@@ -80,7 +80,7 @@ $(function () {
       var time=new Date();
       hora=time.getHours()+":"+time.getMinutes(); 
       
-      var chatme = '<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-left">'+hora+'</span></div><img class="direct-chat-img" src="static/img/default.jpg" data-toggle="tooltip" data-placement="right" title="'+user+'"><div class="direct-chat-text">'+data+'</div></div>';
+      var chatme = '<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-left">'+hora+'</span></div><img class="direct-chat-img" src="img/default.jpg" data-toggle="tooltip" data-placement="right" title="'+user+'"><div class="direct-chat-text">'+data+'</div></div>';
       tono();
         message++;
         $('#msj').text(message);
