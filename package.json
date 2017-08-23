@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",
-    "gulp": "^3.9.1"
   },
   "repository": {
     "type": "git",
@@ -20,6 +19,7 @@
   },
   "dependencies": {
     "express": "^4.15.3",
+    "gulp": "^3.9.1",
     "socket.io": "^2.0.3"
   }
 }

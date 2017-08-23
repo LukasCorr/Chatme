@@ -1,5 +1,5 @@
 # Chat-me
-Simple real-time chat with node, express, socket.io
+Simple and fun real-time chat with node, express, socket.io
 
 **Requeriments:**<br>
 1. Nodejs
