@@ -1,14 +1,16 @@
+
 //Requiero librerias
 var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server),
-	browserSync = require('browser-sync'),
-	gulp = require('gulp');
+	io = require('socket.io').listen(server);
 
+//Habilitar esta escucha del servidor en internet
+//server.listen(process.env.PORT);
 
-//Inicio escucha del servidor, y la ruta de los archivos
+//Inicio escucha del servidor en local
 server.listen(8888);
+
 app.use(express.static(__dirname + '/src'));
 
 
@@ -77,17 +79,10 @@ io.sockets.on('connection', function(socket){
 	socket.on('sonidos', function(data){
 
 		if(data=="zumbido"){
+			socket.emit("funciones_sonidos", "zumbido-yo");
 			socket.broadcast.emit("funciones_sonidos", "zumbido",socket.username);
 		}
 	});
 
 
-});
-
-
-gulp.task('serve',function(){
-	browserSync.init(null, {
-		proxy: "http://localhost:8888",
-        files: ["src/**/*.*"]
-	});
 });

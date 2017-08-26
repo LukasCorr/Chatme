@@ -29,7 +29,7 @@ dialog.prompt({
       manageSessions.unset("login");
       //añadimos un nuevo mensaje de error y ponemos el foco en el campo de texto de la modal
       $(".username").after("<div class='col-md-12 alert alert-danger errorMsg'>El usuario ya está en uso.</div>").focus();
-
+      return;
     });
 
 
@@ -84,15 +84,16 @@ $(function () {
       toastr.error("<b>" + message + "</b> se ha desconectado del chat.");
     }
  
-    //si es un nuevo mensaje 
+    //lo que yo veo
     else if(action == "yo"){
       $("#chat").append('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-left">'+hora+'</span></div><img class="direct-chat-img" src="img/default.jpg" data-toggle="tooltip" data-placement="right" title=""><div class="direct-chat-text">'+message+'</div></div>');
     }
     
-    //si es un nuevo mensaje 
+    //lo que ven los demas
     else if(action == "usuario"){
       $("#chat").append('<div class="direct-chat-msg"><div class="direct-chat-info clearfix"><span class="direct-chat-timestamp pull-right">'+hora+'</span></div><img class="direct-chat-img" src="img/default.jpg"><div class="direct-chat-text">'+message+'</div></div>');
       tono();
+      
     }
 
     //Mensaje de bienvenida
@@ -122,8 +123,8 @@ $(function () {
       //recorremos el objeto y los mostramos en el sidebar, los datos
       //están almacenados con {clave : valor}
       $.each(usersOnline, function(key, val){
-        $(".contacts-list").append('<li><a href="#"><img class="contacts-list-img" src="img/default.jpg"><div class="contacts-list-info"><span class="contacts-list-name">'+key+'<small class="contacts-list-date pull-right">2/28/2015</small></span><span class="contacts-list-msg">How have you been? I was...</span></div></a></li>');
-      })
+        $(".contacts-list").append('<li><img class="contacts-list-img" src="img/favicon.png"><div class="contacts-list-info"><span class="contacts-list-name">'+key+'<small class="contacts-list-date pull-right">2/28/2015</small></span><span class="contacts-list-msg">Mi estado. En proceso..</span></div></li>');
+      });
     }
   });
 
@@ -152,9 +153,19 @@ var manageSessions = {
     }
 };
 
+//función que comprueba si un objeto está vacio, devuelve un boolean
+function isEmptyObject(obj) 
+{
+    var name;
+    for (name in obj) 
+    {
+        return false;
+    }
+    return true;
+}
+
 
 /* funcion para los colores   */
-
 $('#color').click(function(){
   $("#colores").toggle("slow");
 });
@@ -206,23 +217,6 @@ function tono(){
   audio.play();
 }
 
-
-// Input deslisable configurations
-var elem = document.querySelector('.js-switch');
-var init = new Switchery(elem,{secondaryColor    : '  #E6E6FA'});
-
-defaults = {
-    color             : '#64bd63'
-  , secondaryColor    : '#dfdfdf'
-  , jackColor         : '#fff'
-  , jackSecondaryColor: null
-  , className         : 'switchery'
-  , disabled          : false
-  , disabledOpacity   : 0.5
-  , speed             : '0.4s'
-  , size              : 'large'
-};
-
 toastr.options.closeButton = true;
 
 //Funciones para los elementos y sonidos
@@ -245,19 +239,14 @@ $(function(){
 
   socket.on("funciones_sonidos",function(sonido,user){
    
-   if(sonido== "zumbido"){
-    $('.box').css('margin','70px 0px 0px 15%');
-    $('.box, #chatme, #color, footer').jrumble({opacity: true});
-        $('.box, #chatme, #color, footer').trigger('startRumble');
-    setTimeout(function(){
-    $('.box, #chatme, #color, footer').trigger('stopRumble')}, 6100);
-        var audio = new Audio('audio/aiuda.mp3');
-  audio.play();
-  
-
+    if(sonido== "zumbido"){
+      zumbido(); 
+      $("#chat").append('<span class="direct-chat-timestamp"><i class="fa fa-exclamation"></i> '+user+' envió un '+ sonido+'.<br>');
+    }
+    if(sonido=="zumbido-yo"){
+      $("#chat").append('<span class="direct-chat-timestamp with-border"><i class="fa fa-exclamation"></i> Enviaste un zumbido.<br>');
     }
  
-  $("#chat").append('<span class="direct-chat-timestamp"><i class="fa fa-exclamation"></i> '+user+' ha enviado un '+ sonido+'.<br>');
   animateScroll();
   });
 
